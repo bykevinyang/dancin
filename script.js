@@ -2,7 +2,7 @@ const beginning_phrases = [
     "No one is around to help",
     "Life is hard, life is stressful",
     "I need peace and tranquility",
-    "I need to be alone...",
+    "I don't want to be alone",
 ]
 
 const beatdrop_phrases = [
@@ -12,11 +12,13 @@ const beatdrop_phrases = [
     "Don't let yesterday take up too much of today",
 ]
 
-let beatdrop_time = 29.5
+let beatdrop_time = 32.5
 
 let phraseIndex = 0
 
 let phrase_delay_time = 6000
+
+const beatdrop_saturation = 2
 
 const start = () => {
     const audio = document.createElement('audio')
@@ -59,10 +61,11 @@ const start = () => {
         if (audio.currentTime <= beatdrop_time) {
             phraseIndex = (phraseIndex + 1) % beginning_phrases.length
             document.querySelector('.phrase-box').innerText = beginning_phrases[phraseIndex]
+            img[0].style.WebkitFilter = 'saturate(0)'
         } else {
-            var img = document.getElementsByTagName('img')
-            img[0].style.WebkitFilter = 'saturate(100)'
-            img[0].style.filter = 'saturate(100)'
+            // var img = document.getElementsByTagName('img')
+            // img[0].style.WebkitFilter = `saturate(${beatdrop_saturation})`
+            // img[0].style.filter = `saturate(${beatdrop_saturation})`
             phraseIndex = (phraseIndex + 1) % beatdrop_phrases.length
             document.querySelector('.phrase-box').innerText = beatdrop_phrases[phraseIndex]
                 phrase_delay_time = 1000
@@ -75,7 +78,7 @@ const start = () => {
 
     const danceImage = document.createElement('img')
     //   danceImage.src = 'https://cloud-mpvs8batk-hack-club-bot.vercel.app/02x-speed-ezgif.com-gif-maker.gif'
-    danceImage.src = 'dancin_slow_flow.gif'
+    danceImage.src = 'dancin_very_slow_flow.gif'
     document.querySelector('.container').appendChild(danceImage)
 
     const phraseBox = document.createElement('p')
@@ -88,6 +91,14 @@ const start = () => {
         phraseBox.innerText = beginning_phrases[phraseIndex]
         setInterval(updatePhrase, phrase_delay_time)
     }, 1000)
+
+    beatdrop = setTimeout(() => {
+        // newImage = document.createElement('img')
+        danceImage.src = 'dancin_slow_flow.gif'
+        danceImage.style.WebkitFilter = `saturate(${beatdrop_saturation})`
+        danceImage.style.filter = `saturate(${beatdrop_saturation})`
+        // danceImage.replaceWith(newImage)
+    }, beatdrop_time * 1000)
     danceImage.onclick = toggleAudio
 }
 
