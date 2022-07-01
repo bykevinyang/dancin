@@ -2,14 +2,14 @@ const beginning_phrases = [
     "No one is around to help",
     "Life is hard, life is stressful",
     "I need peace and tranquility",
-    "I don't have to prove myself to anyone"
+    "I need to be alone...",
 ]
 
 const beatdrop_phrases = [
-    "I'm a beatdrop",
-    "Joe mama is here",
-    "Help me plz",
-    "Hi there",
+    "You're the boss!",
+    "I don't have to prove myself to anyone",
+    "Surround yourself with those who love you",
+    "Don't let yesterday take up too much of today",
 ]
 
 let beatdrop_time = 29.5
@@ -35,6 +35,10 @@ const start = () => {
         }
     }
 
+    // const toggleImageSaturation = () => {
+    //     document.getElementById('img').style.filter = 'saturate(2)'
+    // }
+
     const audioState = () => {
         if (audio.volume == 0) {
             return 'off'
@@ -56,9 +60,12 @@ const start = () => {
             phraseIndex = (phraseIndex + 1) % beginning_phrases.length
             document.querySelector('.phrase-box').innerText = beginning_phrases[phraseIndex]
         } else {
+            var img = document.getElementsByTagName('img')
+            img[0].style.WebkitFilter = 'saturate(100)'
+            img[0].style.filter = 'saturate(100)'
             phraseIndex = (phraseIndex + 1) % beatdrop_phrases.length
             document.querySelector('.phrase-box').innerText = beatdrop_phrases[phraseIndex]
-            phrase_delay_time = 1000
+                phrase_delay_time = 1000
         }
     }
 
